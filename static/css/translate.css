@@ -1,0 +1,153 @@
+body {
+    background-color: #0f0f0f;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-image: url('data:image/png;base64,YOUR_BASE64_STRING_HERE');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+    width: 800px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+.header {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #FFFFFF;
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px 10px 0 0;
+}
+
+.sidebar {
+    float: left;
+    width: 25%;
+    background: rgba(62, 62, 143, 0.8);
+    height: 100%;
+    padding: 15px;
+    border-radius: 0 0 0 10px;
+    box-sizing: border-box;
+}
+
+.sidebar h3 {
+    color: #FFFFFF;
+    margin-top: 0;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+    color: #FFFFFF;
+}
+
+.sidebar ul li a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.sidebar ul li a:hover {
+    text-decoration: underline;
+}
+
+.content {
+    float: right;
+    width: 75%;
+    padding: 20px;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 0 0 10px 0;
+}
+
+.camera-window {
+    width: 100%;
+    height: 400px;
+    background-color: #F0F0F0;
+    border: 2px solid #3E3E8F;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.translation-section {
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.translation-section h3 {
+    color: #3E3E8F;
+}
+
+.translation-section textarea {
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #3E3E8F;
+    box-sizing: border-box;
+}
+
+.translation-section button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #A9A9A9;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.translation-section button:hover {
+    background-color: #3E3E8F;
+}
+
+.translation-section p {
+    margin-top: 20px;
+    color: #3E3E8F;
+    font-weight: bold;
+}
+
+.buttons {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.buttons button {
+    background-color: #A9A9A9;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buttons button:hover {
+    background-color: #3E3E8F;
+}
+
+.footer {
+    background-color: rgba(62, 62, 143, 0.8);
+    color: #FFFFFF;
+    text-align: center;
+    padding: 10px;
+    border-radius: 0 0 10px 10px;
+    clear: both;
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoHands</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" type="text/css">
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>EchoHands</h1>
+    </div>
+    <div class="sidebar">
+        <h3>Records</h3>
+        <ul>
+            <li><a href="#">R1: Office presentations</a></li>
+            <li><a href="#">R2: Get your food</a></li>
+            <li><a href="#">R3: General awareness</a></li>
+            <li><a href="#">R4: How are you?</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <div class="camera-window" id="cameraWindow">
+            <video id="video" width="100%" height="100%" autoplay></video>
+        </div>
+        <div class="buttons">
+            <button id="startButton">Start</button>
+            <button id="recordButton">Record</button>
+            <button id="stopButton">Stop</button>
+            <a id="downloadButton" href="#" download="recording.webm">
+                <button>Download</button>
+            </a>
+        </div>
+        <div class="translation-section">
+            <h3>Translate to Hindi</h3>
+            <textarea id="englishText" placeholder="Enter English text here..."></textarea>
+            <button id="translateButton">Translate</button>
+            <p id="hindiText">Hindi Translation will appear here...</p>
+        </div>
+        <p id="outputText">Vansh: Friends</p>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 EchoHands</p>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script>
+    const startButton = document.getElementById('startButton');
+    const recordButton = document.getElementById('recordButton');
+    const stopButton = document.getElementById('stopButton');
+    const downloadButton = document.getElementById('downloadButton');
+    const video = document.getElementById('video');
+    const translateButton = document.getElementById('translateButton');
+    const englishText = document.getElementById('englishText');
+    const hindiText = document.getElementById('hindiText');
+
+    let mediaStream = null;
+    let mediaRecorder = null;
+    let recordedChunks = [];
+
+    startButton.addEventListener('click', async () => {
+        if (!mediaStream) {
+            mediaStream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = mediaStream;
+        }
+    });
+
+    recordButton.addEventListener('click', () => {
+        if (mediaStream && !mediaRecorder) {
+            recordedChunks = [];
+            mediaRecorder = new MediaRecorder(mediaStream, {
+                mimeType: 'video/webm;codecs=vp9'
+            });
+            mediaRecorder.ondataavailable = (event) => {
+                if (event.data.size > 0) {
+                    recordedChunks.push(event.data);
+                }
+            };
+            mediaRecorder.onstop = () => {
+                const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                const url = URL.createObjectURL(blob);
+                downloadButton.href = url;
+                downloadButton.download = 'recording.webm';
+            };
+            mediaRecorder.start();
+            console.log('Recording started');
+        }
+    });
+
+    stopButton.addEventListener('click', () => {
+        if (mediaRecorder) {
+            mediaRecorder.stop();
+            console.log('Recording stopped');
+            mediaRecorder = null;
+        }
+    });
+
+    translateButton.addEventListener('click', async () => {
+        const text = englishText.value;
+        if (text) {
+            try {
+                const response = await axios.get('https://api.mymemory.translated.net/get', {
+                    params: {
+                        q: text,
+                        langpair: 'en|hi'
+                    }
+                });
+                hindiText.textContent = response.data.responseData.translatedText;
+            } catch (error) {
+                hindiText.textContent = 'Translation failed. Please try again.';
+            }
+        }
+    });
+</script>
+
+</body>
+</html>
