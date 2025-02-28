@@ -30,7 +30,7 @@ cd echo-hands
 
 ### 3️⃣ Run the ASL Interpreter
 ```bash
-python3 infernce_classifier.py
+python3 inference_classifier.py
 ```
 This will open your webcam and start detecting ASL gestures.
 
